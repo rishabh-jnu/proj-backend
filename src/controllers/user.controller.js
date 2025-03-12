@@ -2,6 +2,7 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import {ApiError} from '../utils/apiError.js';
 import { User } from '../models/user.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
+import { ApiReponse } from '../utils/ApiResponse.js';
 
 
 
@@ -58,6 +59,10 @@ const registerUser = asyncHandler(async (req, res) => {
     if(!createdUser) {
         throw new ApiError(500, "Something went wrong while registering user");
     }
+
+    return res.status(201).json(
+        new ApiReponse(200, createdUser, "User registered successfully")
+    );
 
 });
 
