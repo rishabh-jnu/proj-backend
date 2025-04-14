@@ -334,10 +334,10 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Username is missing");
     }
 
-    const channel =await User.aggregate([
+    const channel = await User.aggregate([
         {
             $match: {
-                username: username.toLowerCase()
+                username: username?.toLowerCase()
             }
         },
         {
@@ -358,7 +358,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         },
         {
             $addFields: {
-                subscriberCount: { 
+                subscribersCount: { 
                     $size: "$subscribers" 
                 },
                 channelsSubscribedToCount: { 
@@ -397,7 +397,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
     .status(200)
     .json(
         new ApiReponse(200, channel[0], "Channel details fetched successfully")
-    );
+    ); 
 });
 
 export { 
